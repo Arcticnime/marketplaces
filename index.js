@@ -23,7 +23,7 @@ app.use(express.static(publicDir));
 
 // Serve the index.html
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "main", "index.html"));
 });
 
 app.listen(PORT, () => {
@@ -103,7 +103,7 @@ client.on("interactionCreate", async (interaction) => {
         }
 
         console.log("Reading existing HTML...");
-        const html = await fs.readFile(path.join(__dirname, "public", "index.html"), "utf8");
+        const html = await fs.readFile(path.join(__dirname, "main", "index.html"), "utf8");
         const $ = cheerio.load(html);
 
         let exists = false;
@@ -170,21 +170,21 @@ client.on("interactionCreate", async (interaction) => {
         const formattedHtml = $.html().replace(/\n\s*\n/g, "\n").replace(/(<div class="grid">.*?>)\s*/s, "$1\n");
 
         console.log("Writing modified HTML to file...");
-        await fs.writeFile(path.join(__dirname, "public", "index.html"), formattedHtml);
+        await fs.writeFile(path.join(__dirname, "main", "index.html"), formattedHtml);
 
         // Configure git with environment variables
-        const gitEmail = process.env.GIT_EMAIL || "prxymovies@gmail.com";
-        const gitName = process.env.GIT_NAME || "I-am-Xoid";
+        const gitEmail = process.env.GIT_EMAIL || "snowsgift131@gmail.com";
+        const gitName = process.env.GIT_NAME || "Arcticnime";
         execSync(`git config --global user.email "${gitEmail}"`);
         execSync(`git config --global user.name "${gitName}"`);
 
         // Setup git repository if needed
         try {
           execSync('git init');
-          execSync(`git remote add origin https://${process.env.GITHUB_TOKEN}@github.com/I-am-Xoid/Arctics-Marketplace.git`);
+          execSync(`git remote add origin https://${process.env.GITHUB_TOKEN}@github.com/Arcticnime/arctics-marketplace.git`);
         } catch (e) {
           try {
-            execSync(`git remote set-url origin https://${process.env.GITHUB_TOKEN}@github.com/I-am-Xoid/Arctics-Marketplace.git`);
+            execSync(`git remote set-url origin https://${process.env.GITHUB_TOKEN}@github.com/Arcticnime/arctics-marketplace.git`);
           } catch (err) {
             console.error('Git remote setup error:', err);
           }
@@ -208,8 +208,8 @@ client.on("interactionCreate", async (interaction) => {
         }
 
         // Add and commit new changes
-        execSync("git add public/index.html");
-        execSync(`git add "public/${filename}"`);
+        execSync("git add index.html");
+        execSync(`git add "${filename}"`);
         execSync(`git add addons.json`);
         try {
           execSync(`git commit -m "Add addon: ${title}"`, { stdio: 'pipe' });
@@ -287,7 +287,7 @@ client.on("interactionCreate", async (interaction) => {
         }
 
         console.log("Reading existing HTML...");
-        const html = await fs.readFile(path.join(__dirname, "public", "index.html"), "utf8");
+        const html = await fs.readFile(path.join(__dirname, "main", "index.html"), "utf8");
         const $ = cheerio.load(html);
 
         let found = false;
@@ -333,21 +333,21 @@ client.on("interactionCreate", async (interaction) => {
 
         const formattedHtml = $.html().replace(/\n\s*\n/g, "\n").replace(/(<div class="grid">.*?>)\s*/s, "$1\n");
 
-        await fs.writeFile(path.join(__dirname, "public", "index.html"), formattedHtml);
+        await fs.writeFile(path.join(__dirname, "main", "index.html"), formattedHtml);
 
         // Configure git with environment variables
-        const gitEmail = process.env.GIT_EMAIL || "prxymovies@gmail.com";
-        const gitName = process.env.GIT_NAME || "Arctic";
+        const gitEmail = process.env.GIT_EMAIL || "snowsgift131@gmail.com";
+        const gitName = process.env.GIT_NAME || "Arcticnime";
         execSync(`git config --global user.email "${gitEmail}"`);
         execSync(`git config --global user.name "${gitName}"`);
 
         // Setup git repository if needed
         try {
           execSync('git init');
-          execSync(`git remote add origin https://${process.env.GITHUB_TOKEN}@github.com/I-am-Xoid/Arctics-Marketplace.git`);
+          execSync(`git remote add origin https://${process.env.GITHUB_TOKEN}@github.com/Arcticnime/arctics-marketplace.git`);
         } catch (e) {
           try {
-            execSync(`git remote set-url origin https://${process.env.GITHUB_TOKEN}@github.com/I-am-Xoid/Arctics-Marketplace.git`);
+            execSync(`git remote set-url origin https://${process.env.GITHUB_TOKEN}@github.com/Arcticnime/arctics-marketplace.git`);
           } catch (err) {
             console.error('Git remote setup error:', err);
           }
@@ -371,7 +371,7 @@ client.on("interactionCreate", async (interaction) => {
         }
 
         // Add and commit new changes
-        execSync("git add public/index.html");
+        execSync("git add index.html");
         execSync(`git add addons.json`);
         try {
           execSync(`git commit -m "Remove addon: ${title}"`, { stdio: 'pipe' });
